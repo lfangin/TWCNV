@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+
+{% block styles %}
+<link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+<link href="/static/starter-template.css" rel="stylesheet">
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
+<!-- link href="path/to/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+
+{% endblock %}
+
+
+{% block content %}
+<h1>Copy number variations in Taiwanese populations</h1>
+<br> </br>
+<!--
+<form action="/draw" method="post">
+  <label for="group_name">Group：</label>
+  <input type="radio" name="group_name" value="ALL " checked> All
+  <input type="radio" name="group_name" value="AA " checked> AA
+  <input type="radio" name="group_name" value="AB " checked> AB
+  <input type="radio" name="group_name" value="BB " checked> BB
+  <input type="submit" value="Submit"><br><br />
+</form>
+-->
+<form action="/uploadText" method="post">
+  <!--
+  Gene : <input type="text" name="gname">
+  <input type="submit" value="Submit"><br><br />
+  -->
+  <div class="col-lg-6">
+    <div class="input-group">
+      <input name="gname" type="text" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Search</button>
+      </span>
+      </input>
+    </div>
+  </div>
+</form>
+<br> </br>
+<form action="/uploadFile" method="post" enctype="multipart/form-data">
+  <!--
+  <input type="file" name="file">
+  <input type="submit" value="Upload"><br />
+
+  <label class="control-label">Select File</label>
+  <input id="input-1a" type="file" class="file" data-show-preview="false">
+
+  <label class="btn btn-primary" for="my-file-selector">
+    <input id="my-file-selector" type="file" style="display:none;">
+    Button Text Here
+  </label>
+  <label class="control-label">Select File</label>
+  -->
+  <input id="input-1" name="file" type="file" class="file" data-show-preview="false">
+</form>
+{% endblock content %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- piexif.min.js is only needed for restoring exif data in resized images and when you
+      wish to resize images before upload. This must be loaded before fileinput.min.js -->
+<script src="/static/bootstrap-fileinput/js/plugins/piexif.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+     This must be loaded before fileinput.min.js -->
+<script src="/static/bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
+     This must be loaded before fileinput.min.js -->
+<script src="/static/bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
+<!-- the main fileinput plugin file -->
+<script src="/static/bootstrap-fileinput/js/fileinput.min.js"></script>
+<!-- bootstrap.js below is needed if you wish to zoom and view file content
+     in a larger detailed modal dialog -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- optionally if you need a theme like font awesome theme you can include
+    it as mentioned below -->
+<script src="/static/bootstrap-fileinput/js/locales/fa.js"></script>
+{% endblock %}

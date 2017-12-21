@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Upload your file here{% endblock title %}
+
+{% block styles %}
+{{ super() }}
+<link href="/static/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+<link href="/static/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h1 class="sub-header">Result</h1>
+<div class="table-responsive">
+  <form action="" method="">
+    <div class="btn-group" role="group" aria-label="...">
+      <button type="button" class="btn btn-default">ALL</button>
+      <button type="button" class="btn btn-default">MALE</button>
+      <button type="button" class="btn btn-default">FEMALE</button>
+    </div>
+  </form>
+  <form action="/download" method="post">
+    <button type="submit" class="btn btn-default">Download</button>
+  </form>
+  <br></br>  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Gene Name</th>
+        <th>Cytoband</th>
+        <th>Gene Type</th>
+        <th>Chromosome</th>
+        <th>Segment.start</th>
+        <th>Segment.stop</th>
+        <th>Duplication %</th>
+        <th>Deletion %</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for upload in recent_uploads %}
+      <tr>
+        <td>{{ upload.name }}</td>
+        <td>{{ upload.cytoband }}</td>
+        <td>{{ upload.syn2 }}</td>
+        <td>{{ upload.chrom }}</td>
+        <td>{{ upload.start }}</td>
+        <td>{{ upload.end }}</td>
+        <td id="amp">{{ upload.amp }}</td>
+        <td id="dele">{{ upload.dele }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div>
+  <h2>Visualization</h2>
+  <p>You can see the visualization of CNV frequency and their locations here</p>
+  <p>Change the locations to see other CNVs</p>
+  <p>Reference Genes their diseased phenotypes are provided</p>
+  <script type="text/javascript">
+    document.write('<iframe src="http://127.0.0.1/jbrowse/JBrowse-1.12.1/index.html?data=sample_data%2Fjson%2Ftwcnv&loc=chr' + {{recent_uploads[0].chrom}} + '%3A' + {{recent_uploads[0].start}} +'..'+ {{recent_uploads[0].end}} + '&tracks=DNA%2CCnv_amp%2CCnv_del&highlight=" style="height: 500px; width: 100%; padding: 0; border: 0;"></iframe>');
+  </script>
+</div>{% endblock content %}

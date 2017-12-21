@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Searching History{% endblock title %}
+
+{% block content %}
+<h1>Searching History ( For Last 10 attempts )</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Gene name</th>
+      <th>Chromesome</th>
+      <th>Last Searched</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for history in recent_histories %}
+    <tr>
+      <td>{{ history.name }}</td>
+      <td>{{ history.chrom }}</td>
+      <td>{{ history.draw_time.strftime("%Y 年 %m 月 %d 日 %H 時 %M 分") }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
